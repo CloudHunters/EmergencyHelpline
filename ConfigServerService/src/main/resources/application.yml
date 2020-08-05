@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: native
+---
+spring:
+  profiles: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations:
+            file:///../ms-config-properties/{application}/{profile}
+            
+---
+spring:
+  profiles: git
+  cloud:
+    config:
+      server:
+        git:
+          uri: 
+          username: 
+          password: 
+          search-paths:
+            - 
+            
+
