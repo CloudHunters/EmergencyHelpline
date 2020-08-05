@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "EmergencyHelplineUI"
+    }
+  },
+  "defaultProject": "EmergencyHelplineUI",
+  "cli": {
+    "analytics": "e7dd3693-12c4-4bcf-aa46-44ac3f12596f"
+  }
 }
