@@ -1,4 +1,8 @@
 spring:
+  application:
+    name: ConfigServer
+  profiles:
+    active: local
   cloud:
     config:
       server:        
@@ -20,8 +24,6 @@ spring:
 logging:
   level:
     root: info
-server:
-  port: 8888
 management:
   endpoints:
     web:
@@ -29,5 +31,5 @@ management:
         include: '*'
       base-path: /management
   server:
-    port: 8191             
+    port: 8191
 
