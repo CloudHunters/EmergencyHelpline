@@ -18,8 +18,7 @@ import lombok.NoArgsConstructor;
 @Document(collection = "Users")
 public class User {
 
-	@Id ObjectId databaseId;
-    private long id;    
+	@Id    
     private String username;
     private String password;
     private String name;
@@ -27,8 +26,7 @@ public class User {
     private Date lastUpdatedTime;
 
     public UserDto toUserDto(){
-        UserDto userDto = new UserDto();
-        userDto.setId(this.id);        
+        UserDto userDto = new UserDto();            
         userDto.setName(this.name);        
         userDto.setUsername(this.username);
         userDto.setPassword(this.password);

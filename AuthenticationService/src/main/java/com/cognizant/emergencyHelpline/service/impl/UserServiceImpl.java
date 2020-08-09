@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public UserDto save(UserDto userDto) {
         User userWithDuplicateUsername = userDao.findByUsername(userDto.getUsername());
-        if(userWithDuplicateUsername != null && userDto.getId() != userWithDuplicateUsername.getId()) {
+        if(userWithDuplicateUsername != null && userDto.getUsername() != userWithDuplicateUsername.getUsername()) {
             log.error(String.format("Duplicate username %", userDto.getUsername()));
             throw new RuntimeException("Duplicate username.");
         }        

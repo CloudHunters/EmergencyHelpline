@@ -1,5 +1,5 @@
 spring:
   application:
-    name: ServiceRegistration
+    name: ServiceDiscovery
   profiles:
     active: local
