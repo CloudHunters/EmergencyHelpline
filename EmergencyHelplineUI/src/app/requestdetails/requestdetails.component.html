@@ -1,0 +1,43 @@
+
+
+<div class="card bg-light text-dark mb-3 ml-1 mr-1">
+  <div class="row">
+
+  <div class=" col card-header"><b>Hospital Name: {{apiResponseObj.hospitalName}}  </b></div>
+
+  
+   <div class= " col card-header"><b>Regn No: {{apiResponseObj.hospitalRegnNo}}</b></div>
+  
+  </div>
+  <div class="card-body">
+    
+    <div class="row">
+      <div class="col">
+        <p class="text-dark">Email: {{apiResponseObj.email}}</p>
+        <p class="text-dark">City: {{apiResponseObj.city}}</p>
+        <p class="text-dark">State: {{apiResponseObj.state}}</p>
+        <p class="text-dark">Country: {{apiResponseObj.country}}</p>
+        <p class="text-dark">Pincode: {{apiResponseObj.pincode}}</p>
+      </div>
+      <div class="col">
+        
+        <p class="text-dark">Bed Capacity: {{apiResponseObj.bedCapacity}}</p>
+        <p class="text-dark">Bed Available: {{apiResponseObj.bedAvailable}}</p>
+         <p class="text-dark">Ventilator Facility: {{apiResponseObj.ventilatorFacility}}</p>
+        <p class="text-dark">Ventilator Capacity: {{apiResponseObj.ventilatorCapacity}}</p>
+        <p class="text-dark">Ventilator Available: {{apiResponseObj.ventilatorAvailable}}</p>
+      </div>
+     
+      <div class="col">
+         
+        <p class="text-dark">Covid Speciality: {{apiResponseObj.covidSpeciality}}</p>
+        <p class="text-dark">Heart Speciality: {{apiResponseObj.heartSpeciality}}</p>
+        <p class="text-dark">Accident Speciality: {{apiResponseObj.accidentSpeciality}}</p>
+        <p class="text-dark">Ortho Speciality: {{apiResponseObj.orthoSpeciality}}</p>
+        <p class="text-dark">Neuro Speciality: {{apiResponseObj.neuroSpeciality}}</p>
+        
+      </div>
+      
+    </div>
+  </div>
+</div>

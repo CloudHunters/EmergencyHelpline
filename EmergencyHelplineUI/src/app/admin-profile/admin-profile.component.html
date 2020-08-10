@@ -1,0 +1,115 @@
+<div class="container bodyContainer" id="spSignup">
+    <div style="clear:both;"></div>
+    <div id="variableHeightContainer" class="variableHeightContainer variableHeightContainer-fit">
+       <!--<div class="graphicImage">
+<img class="img-responsive" src="/assets/images/medical-concept.jpg" onerror="this.src='/assets/images/medical-concept.jpg'" alt="Practo Accounts">
+</div>-->
+        <div class="rightRegisterForm">
+            <form id="register_email_form" class="form-horizontal" method="POST"
+                action="/new_patient_signup?intent=accounts">
+                <div class="outer-box center-align">
+                    <div class="box-header">
+                        <div><p class="no-bottom-margin display-inline" id="joinPracto">NEW LIFE</p>
+                           <a href="/doctor_signup?intent=fabric" class="register font-12 black-link  align-top" id="normal-doctor-signup">
+                                <span class="blue-link">Edit Here</span>
+                            </a>
+                           
+                            <div style="clear:both"></div>
+                       </div>
+
+                    </div>
+                    <div class="outer-space">
+                        <p class="no-bottom-margin">HospitalRegnNo
+                        </p>
+                        <div class="padding-top-8">
+                            <input autofocus="" class="form-control email-text" id="HospitalRegnNo" name="HospitalRegnNo"
+                                placeholder="HospitalRegnNo" type="text" value="">
+                            <span id="nameErrorBlock" class="error-block display-block">
+
+                            </span>
+                        </div>
+                        <p class="no-bottom-margin">Hospital Name</p>
+                        <div class="padding-top-8">
+                            <input autofocus="" class="form-control email-text" id="HospitalName" name="HospitalName"
+                                placeholder="Hospital Name" type="text" value="">
+                            <span id="nameErrorBlock" class="error-block display-block">
+
+                            </span>
+                        </div>
+                        <input type="hidden" id="is-patient-signup">
+                        <div class="padding-top-8">
+                            <p class="no-bottom-margin">Mobile Number</p>
+                            <div class="padding-top-8">
+                                <div class="mobile-number">
+                                    <input class="form-control email-text " id="mobile" name="mobile"
+                                        placeholder="Mobile Number" type="tel" value="">
+                                </div>
+                            </div>
+                            <span id="mobileErrorBlock" class="error-block display-block">
+
+                            </span>
+                        </div>
+                        <p class="no-bottom-margin">Email</p>
+                        <div class="padding-top-8">
+                            <input autofocus="" class="form-control email-text" id="Email" name="Email"
+                                placeholder="Email" type="text" value="">
+                            <span id="nameErrorBlock" class="error-block display-block">
+
+                            </span>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <div class="padding-top-8">
+                            <p class="no-bottom-margin">Address</p>
+                            <div class="padding-top-8">
+                                <input class="form-control email-text" id="Address" name="Address"
+                                    placeholder="Address" type="text" value="">
+                                    <span id="passwordErrorBlock" class="error-block display-block">
+                                </span>
+                            </div>
+                        </div>
+                        <app-dropdown></app-dropdown>
+                        <div style="clear:both;"></div>
+                        <div class="padding-top-8">
+                            <p class="no-bottom-margin">Insurance provider</p>
+                            <div class="padding-top-8">
+                                <input class="form-control email-text" id="Insuranceprovider" name="Insuranceprovider"
+                                    placeholder="Insurance provider" type="text" value="">
+                                    <span id="passwordErrorBlock" class="error-block display-block">
+                                </span>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <div class="padding-top-8">
+                            <p class="no-bottom-margin">Insurance provider</p>
+                            <div class="padding-top-8">
+                                <input class="form-control email-text" id="Insuranceprovider" name="Insuranceprovider"
+                                    placeholder="Insurance provider" type="text" value="">
+                                    <span id="passwordErrorBlock" class="error-block display-block">
+                                </span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="padding-top-20 font-12 textMuted">
+                                <div class="otp-flow">
+                                     <div class="padding-top-8 textMuted font-10 sign-up-terms">
+                                        <p class="no-bottom-margin">* Mandatory fields </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="clear:both;"></div>
+                            <div class="padding-top-20">
+                                <div id="recaptcha-container-register"
+                                    data-sitekey="6LcgVBgUAAAAANU9A74W9CtzZ3NeJdhbGIoUbDXG" data-size="invisible">
+                                </div>
+                                <button class="btn  btn-lg common-btn practo-btn" id="EmailRegister">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    <div style="clear:both;"></div>
+    <div style="margin-bottom:40px" id="margin-div"></div>
+</div>

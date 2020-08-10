@@ -25,7 +25,7 @@ import com.cognizant.emergencyHelpline.services.HospitalDetailsService;
 
 @RestController
 @RequestMapping("/hospital")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class HospitalServiceController {
 	
 	@Autowired

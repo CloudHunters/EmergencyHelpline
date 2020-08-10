@@ -153,20 +153,20 @@ public class HospitalDetailsServiceImpl implements HospitalDetailsService{
 	    }
 	    if (!StringUtils.isEmpty(request.getSpeciality())) {
 	    	if(request.getSpeciality().equals("covid")) {
-	    	 criteria.and("covidSpeciality").is("Y");
+	    	 criteria.and("covidSpeciality").is("Yes");
 	    	}
 	    	if(request.getSpeciality().equals("heart")) {
-		    	 criteria.and("heartSpeciality").is("Y");
+		    	 criteria.and("heartSpeciality").is("Yes");
 		    }
 	    	if(request.getSpeciality().equals("accident")) {
-		    	 criteria.and("accidentSpeciality").is("Y");
+		    	 criteria.and("accidentSpeciality").is("Yes");
 		    
 	    	}
 	    	if(request.getSpeciality().equals("ortho")) {
-		    	 criteria.and("orthoSpeciality").is("Y");
+		    	 criteria.and("orthoSpeciality").is("Yes");
 		    }
 	    	if(request.getSpeciality().equals("neuro")) {
-		    	 criteria.and("neuroSpeciality").is("Y");
+		    	 criteria.and("neuroSpeciality").is("Yes");
 		    }	       
 	    }
 	    query.addCriteria(criteria);
