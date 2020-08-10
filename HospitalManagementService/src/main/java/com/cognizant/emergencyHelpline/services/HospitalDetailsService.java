@@ -10,7 +10,7 @@ import com.cognizant.emergencyHelpline.dto.HospitalSearchResponseDTO;
 @Service
 public interface HospitalDetailsService {
 	
-	List<HospitalSearchResponseDTO> getHospitalDetails(HospitalSearchRequestDTO searchData);
+	//List<HospitalSearchResponseDTO> getHospitalDetails(HospitalSearchRequestDTO searchData);
 	List<HospitalSearchResponseDTO> getHospitalDetails();
 	HospitalSearchResponseDTO findByHospitalRegnNo(String hosRegnNo);		
 	String saveHospitalDetails(HospitalSearchResponseDTO hospitalProfileDTO);

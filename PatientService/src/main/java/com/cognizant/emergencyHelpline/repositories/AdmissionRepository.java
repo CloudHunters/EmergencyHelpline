@@ -11,6 +11,6 @@ import com.cognizant.emergencyHelpline.dto.ViewAdmissionResponseDTO;
 @Repository
 public interface AdmissionRepository extends MongoRepository<AdmissionDetails, String>{
 	List<AdmissionDetails> findAll();
-	AdmissionDetails findByRequestNumber(String requestNumber);
+	AdmissionDetails findByMobileNumber(String mobileNumber);
 	String save(ViewAdmissionResponseDTO admissionDetails);	
 }

@@ -12,5 +12,5 @@ public interface HospitalRepository extends MongoRepository<HospitalDetails, Str
 	List<HospitalDetails> findAll();
 	HospitalDetails findByHospitalRegnNo(String hospitalRegnNo);
 	
-	List<HospitalDetails> searchHospital(HospitalDetails request);	
+	//List<HospitalDetails> searchHospital(HospitalDetails request);	
 }

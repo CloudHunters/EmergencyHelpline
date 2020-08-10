@@ -70,7 +70,7 @@ public class HospitalDetailsServiceImpl implements HospitalDetailsService{
 		return response;
 	}	
 
-	@Override
+	/*@Override
 	public List<HospitalSearchResponseDTO> getHospitalDetails(HospitalSearchRequestDTO searchData) {
 		List<HospitalSearchResponseDTO> hospitalDetailsListResponse = new ArrayList<>();
 		HospitalDetails request= new HospitalDetails();
@@ -105,7 +105,7 @@ public class HospitalDetailsServiceImpl implements HospitalDetailsService{
 		hospitalDetailsListResponse.add(response);
 		}
 		return hospitalDetailsListResponse;
-	}
+	}*/
 	
 	public String saveHospitalDetails(HospitalSearchResponseDTO hospitalProfileDTO) {		
 		log.info(String.format("Save Patient Details"));

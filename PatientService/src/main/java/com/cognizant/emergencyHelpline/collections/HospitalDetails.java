@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-@Document(collection = "UnregisteredFeedback")
+@Document(collection = "HospitalDetails")
 public class HospitalDetails {
 
 	@Id

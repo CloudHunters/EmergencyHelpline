@@ -1,5 +1,6 @@
 package com.cognizant.emergencyHelpline.services.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -35,9 +36,9 @@ public class AdmissionDetailsServiceImpl implements AdmissionDetailsService{
 	private AdmissionRepository admissionRepository;	
 
 	@Override
-	public ViewAdmissionResponseDTO viewAdmissionRequest(String requestNumber) {
+	public ViewAdmissionResponseDTO viewAdmissionRequest(String mobileNumber) {
 		log.info(String.format("Get patient Details by Mobile Number"));		
-		AdmissionDetails viewAdmissionResp =  admissionRepository.findByRequestNumber(requestNumber);		
+		AdmissionDetails viewAdmissionResp =  admissionRepository.findByMobileNumber(mobileNumber);		
 		HospitalDetails hospitalDetail = hospitalRepository
 				.findByHospitalRegnNo(viewAdmissionResp.getHospitalRegnNo());		
 		ViewAdmissionResponseDTO viewAdmissionDto = new ViewAdmissionResponseDTO(viewAdmissionResp.getRequestNumber(),
@@ -59,8 +60,10 @@ public class AdmissionDetailsServiceImpl implements AdmissionDetailsService{
 		details.setHospitalRegnNo(hospitalDetails.getHospitalRegnNo());
 		details.setLastUpdDt(new Date());
 		details.setMobileNumber(patientDetails.getMobileNumber());
-		details.setRequestedDate(new Date());
-		details.setRequestNumber(patientDetails.getMobileNumber() + new Date());
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+		String dateString = format.format(new Date());		
+		details.setRequestedDate(new Date());		
+		details.setRequestNumber(patientDetails.getMobileNumber()+ hospitalDetails.getHospitalRegnNo()+ dateString);
 		try {
 			admissionRepository.save(details);
 			 message = "Request submitted Successfully";

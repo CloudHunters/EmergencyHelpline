@@ -34,12 +34,12 @@ public class HospitalServiceController {
 	@Autowired
 	private AdmissionDetailsService admissionService;
 	
-	@PostMapping("/searchHospitals")
+	/*@PostMapping("/searchHospitals")
 	public ResponseEntity<Object> searchHospitals(@RequestBody HospitalSearchRequestDTO searchData) {		
 		List<HospitalSearchResponseDTO> hospitalSearchResponse = hospitalService.getHospitalDetails(searchData);
 		return CollectionUtils.isEmpty(hospitalSearchResponse) ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(hospitalSearchResponse, HttpStatus.OK);		
 	}
-	
+	*/
 	@GetMapping("/searchallHospitalsForAnalytics")
 	public ResponseEntity<Object> searchallHospitalsForAnalytics() {		
 		List<HospitalSearchResponseDTO> hospitalSearchResponse = hospitalService.getHospitalDetails();
@@ -47,7 +47,7 @@ public class HospitalServiceController {
 	}
 	
 	@GetMapping("/viewFacility/{hosRegnNo}")
-	public ResponseEntity<Object> viewFacility(@PathVariable("mobileNumber") String hosRegnNo) {
+	public ResponseEntity<Object> viewFacility(@PathVariable("hosRegnNo") String hosRegnNo) {
 		HospitalSearchResponseDTO viewHospitalData = hospitalService.findByHospitalRegnNo(hosRegnNo);
 		return ObjectUtils.isEmpty(viewHospitalData)
 				? new ResponseEntity<>(HttpStatus.NO_CONTENT)

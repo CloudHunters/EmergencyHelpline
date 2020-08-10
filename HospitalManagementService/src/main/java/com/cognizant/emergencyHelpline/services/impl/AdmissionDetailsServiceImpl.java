@@ -46,6 +46,7 @@ public class AdmissionDetailsServiceImpl implements AdmissionDetailsService{
 		log.info(String.format("Save Admission Details"));
 		AdmissionDetails viewAdmissionResp =  admissionRepository.findByRequestNumber(adminHospAubmitReq.getRequestNumber());
 		viewAdmissionResp.setAdmissionStatus(adminHospAubmitReq.getAdmissionStatus());
+		viewAdmissionResp.setComments(adminHospAubmitReq.getComments());
 		try {
 			admissionRepository.save(viewAdmissionResp);
 			 message = "Request submitted Successfully";
