@@ -10,7 +10,5 @@ import com.cognizant.emergencyHelpline.collections.HospitalDetails;
 @Repository
 public interface HospitalRepository extends MongoRepository<HospitalDetails, String> {	
 	List<HospitalDetails> findAll();
-	HospitalDetails findByHospitalRegnNo(String hospitalRegnNo);
-	
-	//List<HospitalDetails> searchHospital(HospitalDetails request);	
+	HospitalDetails findByHospitalRegnNo(String hospitalRegnNo);		
 }

@@ -50,8 +50,8 @@ public class UserController {
 
     @Secured({ROLE_ADMIN, ROLE_USER})
     @PostMapping(value = "/register")
-    public ResponseEntity<Object> create(@RequestBody UserDto user){
-        log.info(String.format("received request to create user %s", authenticationFacadeService.getAuthentication().getPrincipal()));
+    public ResponseEntity<Object> registerUser(@RequestBody UserDto user){   
+    	 log.info(String.format("received request to register user"));
         UserDto saveUser = userService.save(user);
         return ObjectUtils.isEmpty(saveUser) ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(saveUser, HttpStatus.OK);
     }
@@ -59,7 +59,7 @@ public class UserController {
     @Secured({ROLE_ADMIN, ROLE_USER})
     @GetMapping(value = "/getUserData/{userName}")
     public ResponseEntity<Object> getUserData(@PathVariable String userName){
-        log.info(String.format("received request to update user %s", authenticationFacadeService.getAuthentication().getPrincipal()));
+        log.info(String.format("received request to get user %s", authenticationFacadeService.getAuthentication().getPrincipal()));
         User userDetails = userService.findOne(userName);
         return ObjectUtils.isEmpty(userDetails) ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(userDetails, HttpStatus.OK);
     }

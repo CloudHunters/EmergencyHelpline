@@ -70,7 +70,7 @@ public class HospitalDetailsServiceImpl implements HospitalDetailsService{
 		return response;
 	}	
 
-	/*@Override
+	@Override
 	public List<HospitalSearchResponseDTO> getHospitalDetails(HospitalSearchRequestDTO searchData) {
 		List<HospitalSearchResponseDTO> hospitalDetailsListResponse = new ArrayList<>();
 		HospitalDetails request= new HospitalDetails();
@@ -88,7 +88,7 @@ public class HospitalDetailsServiceImpl implements HospitalDetailsService{
 		} else if(searchData.getSpeciality().equals("accident")) {
 			request.setAccidentSpeciality("Y");
 		} 
-		List<HospitalDetails> hospitalDetailsList =  hospitalRepository.searchHospital(request);
+		/*List<HospitalDetails> hospitalDetailsList =  hospitalRepository.searchHospital(request);
 		for(HospitalDetails hospitalDetails : hospitalDetailsList) {
 		HospitalSearchResponseDTO response = new HospitalSearchResponseDTO(hospitalDetails.getHospitalRegnNo(),
 				hospitalDetails.getHospitalName(), hospitalDetails.getContactNumber(),
@@ -103,9 +103,9 @@ public class HospitalDetailsServiceImpl implements HospitalDetailsService{
 				hospitalDetails.getHeartSpeciality(), hospitalDetails.getAccidentSpeciality(),
 				hospitalDetails.getOrthoSpeciality(), hospitalDetails.getNeuroSpeciality());
 		hospitalDetailsListResponse.add(response);
-		}
+		}*/
 		return hospitalDetailsListResponse;
-	}*/
+	}
 	
 	public String saveHospitalDetails(HospitalSearchResponseDTO hospitalProfileDTO) {		
 		log.info(String.format("Save Patient Details"));

@@ -34,12 +34,12 @@ public class HospitalServiceController {
 	@Autowired
 	private AdmissionDetailsService admissionService;
 	
-	/*@PostMapping("/searchHospitals")
+	@PostMapping("/searchHospitals")
 	public ResponseEntity<Object> searchHospitals(@RequestBody HospitalSearchRequestDTO searchData) {		
 		List<HospitalSearchResponseDTO> hospitalSearchResponse = hospitalService.getHospitalDetails(searchData);
 		return CollectionUtils.isEmpty(hospitalSearchResponse) ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(hospitalSearchResponse, HttpStatus.OK);		
 	}
-	*/
+	
 	@GetMapping("/searchallHospitalsForAnalytics")
 	public ResponseEntity<Object> searchallHospitalsForAnalytics() {		
 		List<HospitalSearchResponseDTO> hospitalSearchResponse = hospitalService.getHospitalDetails();
