@@ -57,7 +57,7 @@ public class PatientServiceController {
 	
 	@GetMapping("/viewPatientProfile/{mobileNumber}")
 	public ResponseEntity<Object> viewPatientProfile(@PathVariable("mobileNumber") String mobileNumber) {
-		PatientDetails patientDetail = patientService.findByMobileNumber(mobileNumber);
+		PatientProfileDTO patientDetail = patientService.findByMobileNumber(mobileNumber);
 		return ObjectUtils.isEmpty(patientDetail)
 				? new ResponseEntity<>(HttpStatus.NO_CONTENT)
 				: new ResponseEntity<>(patientDetail, HttpStatus.OK);

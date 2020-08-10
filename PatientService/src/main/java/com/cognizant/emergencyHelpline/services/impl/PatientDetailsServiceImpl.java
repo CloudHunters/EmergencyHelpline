@@ -32,11 +32,18 @@ public class PatientDetailsServiceImpl implements PatientDetailsService{
 	}
 
 	@Override
-	public PatientDetails findByMobileNumber(String mobileNumber) {
+	public PatientProfileDTO findByMobileNumber(String mobileNumber) {
 		log.info(String.format("Get patient Details by Mobile Number"));
 		PatientDetails patientDetails =  patientRepository.findByMobileNumber(mobileNumber);
+		PatientProfileDTO patientData = new PatientProfileDTO(patientDetails.getMobileNumber(),
+				patientDetails.getEmail(), patientDetails.getAddress(), patientDetails.getCity(),
+				patientDetails.getPincode(), patientDetails.getState(), patientDetails.getCountry(),
+				patientDetails.getInsuranceProvider(), patientDetails.getInsuranceTpaName(),
+				patientDetails.getInsuranceId(), patientDetails.getBloodGroup(), patientDetails.getGender(),
+				patientDetails.getDob(), patientDetails.getMaritalStatus(), patientDetails.getIdProofType(),
+				patientDetails.getIdProofNumber(), patientDetails.getMedicalHistory());
 		log.info(String.format("received patient details %s", patientDetails));
-		return patientDetails;
+		return patientData;
 	}
 	
 	@Override

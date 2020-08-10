@@ -41,7 +41,7 @@ public class UserController {
     private AuthenticationFacadeService authenticationFacadeService;
 
     @Secured({ROLE_ADMIN})	
-    @GetMapping(value = "/getAllUsers")
+    @GetMapping(value = "/getAllPatientsHospitalsForAnalytics")
     public ResponseEntity<Object> listUser(){
         log.info(String.format("received request to list user %s", authenticationFacadeService.getAuthentication().getPrincipal()));
         List<UserDto> userDetails = userService.findAll();

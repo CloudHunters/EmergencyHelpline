@@ -11,7 +11,7 @@ import com.cognizant.emergencyHelpline.dto.PatientProfileDTO;
 public interface PatientDetailsService {
 	
 	List<PatientDetails> getPatientDetails();
-	PatientDetails findByMobileNumber(String mobileNumber);
+	PatientProfileDTO findByMobileNumber(String mobileNumber);
 	String savePatientDetails(PatientProfileDTO patientProfileDTO);
 	
 }

@@ -24,7 +24,7 @@ import com.cognizant.emergencyHelpline.services.AdmissionDetailsService;
 import com.cognizant.emergencyHelpline.services.HospitalDetailsService;
 
 @RestController
-@RequestMapping("/patient")
+@RequestMapping("/hospital")
 @CrossOrigin(origins = "http://localhost:4200")
 public class HospitalServiceController {
 	
@@ -70,8 +70,8 @@ public class HospitalServiceController {
 				: new ResponseEntity<>(viewAdmissioRequest, HttpStatus.OK);
 	}
 	
-	@PostMapping("/submitAdmission")
-	public ResponseEntity<Object> submitAdmission(@RequestBody SubmitAdmissionRequestDTO submitAdmission) {
+	@PostMapping("/ActionAdmissionRequest")
+	public ResponseEntity<Object> ActionAdmissionRequest(@RequestBody SubmitAdmissionRequestDTO submitAdmission) {
 		SubmitAdmissionResponseDTO submitAdmissionResponse = admissionService.submitAdmissionDetails(submitAdmission);
 		return ObjectUtils.isEmpty(submitAdmissionResponse)
 				? new ResponseEntity<>(HttpStatus.NO_CONTENT)

@@ -1,5 +1,8 @@
 package com.cognizant.emergencyHelpline.services.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +10,13 @@ import org.springframework.stereotype.Service;
 
 import com.cognizant.emergencyHelpline.collections.AdmissionDetails;
 import com.cognizant.emergencyHelpline.collections.HospitalDetails;
+import com.cognizant.emergencyHelpline.collections.PatientDetails;
 import com.cognizant.emergencyHelpline.dto.SubmitAdmissionRequestDTO;
 import com.cognizant.emergencyHelpline.dto.SubmitAdmissionResponseDTO;
 import com.cognizant.emergencyHelpline.dto.ViewAdmissionResponseDTO;
 import com.cognizant.emergencyHelpline.repositories.AdmissionRepository;
 import com.cognizant.emergencyHelpline.repositories.HospitalRepository;
+import com.cognizant.emergencyHelpline.repositories.PatientRepository;
 import com.cognizant.emergencyHelpline.services.AdmissionDetailsService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,17 +30,26 @@ public class AdmissionDetailsServiceImpl implements AdmissionDetailsService{
 	private HospitalRepository hospitalRepository;
 
 	@Autowired
+	private PatientRepository patientRepository;
+	
+	@Autowired
 	private AdmissionRepository admissionRepository;	
 
 	@Override
 	public ViewAdmissionResponseDTO viewAdmissionRequest(String HospitalRegnNo) {
-		log.info(String.format("Get patient Details by Mobile Number"));		
-		AdmissionDetails viewAdmissionResp =  admissionRepository.findByHospitalRegnNo(HospitalRegnNo);		
-		HospitalDetails hospitalDetail = hospitalRepository
-				.findByHospitalRegnNo(viewAdmissionResp.getHospitalRegnNo());		
-		ViewAdmissionResponseDTO viewAdmissionDto = new ViewAdmissionResponseDTO(viewAdmissionResp.getRequestNumber(),
+		log.info(String.format("Get patient Details by Mobile Number"));
+		AdmissionDetails viewAdmissionResp = admissionRepository.findByHospitalRegnNo(HospitalRegnNo);
+		HospitalDetails hospitalDetail = hospitalRepository.findByHospitalRegnNo(viewAdmissionResp.getHospitalRegnNo());
+		PatientDetails patientDetails = patientRepository.findByMobileNumber(viewAdmissionResp.getMobileNumber());
+		ViewAdmissionResponseDTO viewAdmissionDto = new ViewAdmissionResponseDTO(viewAdmissionResp.getRequestNumber(), patientDetails.getMobileNumber(),
 				viewAdmissionResp.getRequestedDate(), hospitalDetail.getHospitalName(),
-				viewAdmissionResp.getAdmissionStatus(), viewAdmissionResp.getComments());
+				viewAdmissionResp.getAdmissionStatus(), viewAdmissionResp.getComments(),
+				patientDetails.getEmail(), patientDetails.getAddress(),
+				patientDetails.getCity(), patientDetails.getPincode(), patientDetails.getState(),
+				patientDetails.getCountry(), patientDetails.getInsuranceProvider(),
+				patientDetails.getInsuranceTpaName(), patientDetails.getInsuranceId(), patientDetails.getBloodGroup(),
+				patientDetails.getGender(), patientDetails.getDob(), patientDetails.getMaritalStatus(),
+				patientDetails.getIdProofType(), patientDetails.getIdProofNumber(), patientDetails.getMedicalHistory());
 		log.info(String.format("received patient details %s", viewAdmissionResp));
 		return viewAdmissionDto;
 	}

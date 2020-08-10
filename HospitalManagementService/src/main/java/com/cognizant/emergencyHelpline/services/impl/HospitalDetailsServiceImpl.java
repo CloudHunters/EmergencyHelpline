@@ -7,8 +7,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import com.cognizant.emergencyHelpline.collections.HospitalDetails;
 import com.cognizant.emergencyHelpline.dto.HospitalSearchRequestDTO;
@@ -23,8 +27,15 @@ import lombok.extern.slf4j.Slf4j;
 public class HospitalDetailsServiceImpl implements HospitalDetailsService{
 	private static final Logger log = LoggerFactory.getLogger(HospitalDetailsServiceImpl.class);
 
+	private final MongoTemplate mongoTemplate;
+	
 	@Autowired
 	private HospitalRepository hospitalRepository;
+		
+    @Autowired
+    public HospitalDetailsServiceImpl(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
 
 	@Override
 	public List<HospitalSearchResponseDTO> getHospitalDetails() {
@@ -72,23 +83,8 @@ public class HospitalDetailsServiceImpl implements HospitalDetailsService{
 
 	@Override
 	public List<HospitalSearchResponseDTO> getHospitalDetails(HospitalSearchRequestDTO searchData) {
-		List<HospitalSearchResponseDTO> hospitalDetailsListResponse = new ArrayList<>();
-		HospitalDetails request= new HospitalDetails();
-		request.setState(searchData.getState());
-		request.setCity(searchData.getCity());
-		request.setPincode(searchData.getPincode());
-		if(searchData.getSpeciality().equals("covid")) {
-			request.setCovidSpeciality("Y");
-		} else if(searchData.getSpeciality().equals("Neuro")) {
-			request.setNeuroSpeciality("Y");
-		} else if(searchData.getSpeciality().equals("Ortho")) {
-			request.setOrthoSpeciality("Y");
-		} else if(searchData.getSpeciality().equals("heart")) {
-			request.setHeartSpeciality("Y");
-		} else if(searchData.getSpeciality().equals("accident")) {
-			request.setAccidentSpeciality("Y");
-		} 
-		/*List<HospitalDetails> hospitalDetailsList =  hospitalRepository.searchHospital(request);
+		List<HospitalSearchResponseDTO> hospitalDetailsListResponse = new ArrayList<>();		
+		List<HospitalDetails> hospitalDetailsList = mongoTemplate.find(getQuery(searchData), HospitalDetails.class);						
 		for(HospitalDetails hospitalDetails : hospitalDetailsList) {
 		HospitalSearchResponseDTO response = new HospitalSearchResponseDTO(hospitalDetails.getHospitalRegnNo(),
 				hospitalDetails.getHospitalName(), hospitalDetails.getContactNumber(),
@@ -103,7 +99,7 @@ public class HospitalDetailsServiceImpl implements HospitalDetailsService{
 				hospitalDetails.getHeartSpeciality(), hospitalDetails.getAccidentSpeciality(),
 				hospitalDetails.getOrthoSpeciality(), hospitalDetails.getNeuroSpeciality());
 		hospitalDetailsListResponse.add(response);
-		}*/
+		}
 		return hospitalDetailsListResponse;
 	}
 	
@@ -143,6 +139,39 @@ public class HospitalDetailsServiceImpl implements HospitalDetailsService{
 		return ObjectUtils.isEmpty(message) ? "Error in saving data" : "Hospital Information saved successfully";
 	}
 
+	private Query getQuery(HospitalSearchRequestDTO request) {
+	    Query query = new Query();
+	    Criteria criteria = new Criteria();
+	    if (!StringUtils.isEmpty(request.getState())) {
+	        criteria.and("state").is(request.getState());
+	    }
+	    if (!StringUtils.isEmpty(request.getCity())) {
+	        criteria.and("city").is(request.getCity());
+	    }
+	    if (!StringUtils.isEmpty(request.getPincode())) {
+	        criteria.and("pincode").is(request.getPincode());
+	    }
+	    if (!StringUtils.isEmpty(request.getSpeciality())) {
+	    	if(request.getSpeciality().equals("covid")) {
+	    	 criteria.and("covidSpeciality").is("Y");
+	    	}
+	    	if(request.getSpeciality().equals("heart")) {
+		    	 criteria.and("heartSpeciality").is("Y");
+		    }
+	    	if(request.getSpeciality().equals("accident")) {
+		    	 criteria.and("accidentSpeciality").is("Y");
+		    
+	    	}
+	    	if(request.getSpeciality().equals("ortho")) {
+		    	 criteria.and("orthoSpeciality").is("Y");
+		    }
+	    	if(request.getSpeciality().equals("neuro")) {
+		    	 criteria.and("neuroSpeciality").is("Y");
+		    }	       
+	    }
+	    query.addCriteria(criteria);
+	    return query;
+	}
 
 
 }
