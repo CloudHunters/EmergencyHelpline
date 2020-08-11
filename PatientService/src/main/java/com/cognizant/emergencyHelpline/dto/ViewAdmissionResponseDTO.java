@@ -13,7 +13,7 @@ public class ViewAdmissionResponseDTO implements Serializable {
 	private static final long serialVersionUID = 1438262088903709116L;
 
 	private String requestNumber;
-	private Date requestedDate;
+	private String requestedDate;
 	private String hospitalName;
 	private String admissionStatus;
 	private String comments;

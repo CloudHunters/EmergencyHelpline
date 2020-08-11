@@ -64,8 +64,8 @@ public class HospitalServiceController {
 	
 	@GetMapping("/viewAdmission/{HospitalRegnNo}")
 	public ResponseEntity<Object> viewAdmission(@PathVariable("HospitalRegnNo") String HospitalRegnNo) {
-		ViewAdmissionResponseDTO viewAdmissioRequest = admissionService.viewAdmissionRequest(HospitalRegnNo);
-		return ObjectUtils.isEmpty(viewAdmissioRequest)
+		List<ViewAdmissionResponseDTO> viewAdmissioRequest = admissionService.viewAdmissionRequest(HospitalRegnNo);
+		return CollectionUtils.isEmpty(viewAdmissioRequest)
 				? new ResponseEntity<>(HttpStatus.NO_CONTENT)
 				: new ResponseEntity<>(viewAdmissioRequest, HttpStatus.OK);
 	}

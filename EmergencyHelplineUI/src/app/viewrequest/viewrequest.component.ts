@@ -1,11 +1,14 @@
 import { Component, OnInit,Input } from '@angular/core';
+import { DataserviceService } from "../service/dataservice.service";
 import {
   ModelData,
   DistrictTalukPinCode,
-  ApiResponse,
+  SubmitAdmissionResponse,
   RequestInput,
   ApiResponseArray,
-  ViewAdmissionRequestArray
+  ViewAdmissionRequestArray,
+  ViewAdmissionHospitalRequestArray,
+  SubmitAdmissionHospitalRequest
 } from "../model/modeldata";
 @Component({
   selector: 'app-viewrequest',
@@ -14,14 +17,60 @@ import {
 })
 export class ViewrequestComponent implements OnInit {
 viewAdmissionRequestArray:ViewAdmissionRequestArray;
+viewAdmissionHospitalRequestArray:ViewAdmissionHospitalRequestArray ;
+requestAdmit: boolean;
+apiResponse: SubmitAdmissionResponse;
+submitAdmissionRequest: SubmitAdmissionHospitalRequest = new SubmitAdmissionHospitalRequest();
 
 userType:string="";
-  constructor() { }
+
+  constructor(
+    private dataService: DataserviceService
+  ) {
+  }
 
   ngOnInit() {
     this.userType = sessionStorage.getItem("userType");
+    console.log(JSON.parse(sessionStorage.getItem("viewAdmissionHospitalRequestArray")))
     this.viewAdmissionRequestArray = JSON.parse(sessionStorage.getItem("viewAdmissionRequestArray"));
-    
+    this.viewAdmissionHospitalRequestArray = JSON.parse(sessionStorage.getItem("viewAdmissionHospitalRequestArray"));
   }
 
+index: number;
+  onClickActionApproveRequestAdmission(i,hospitalDetails) {
+    this.requestAdmit = true;
+    this.index = i;
+    this.apiResponse = hospitalDetails;
+    alert(hospitalDetails);
+    this.submitAdmissionRequest.requestNumber = hospitalDetails.requestNumber;
+    this.submitAdmissionRequest.admissionStatus = "Approved";
+    this.submitAdmissionRequest.comments = "Request Approved";
+    this.dataService
+      .submitHospitalRequest(JSON.stringify(this.submitAdmissionRequest))
+      .subscribe(data => {
+        this.apiResponse = data;
+      });
+  }
+
+  onClickActionDenyRequestAdmission(i,hospitalDetails) {
+    this.requestAdmit = true;
+    this.index = i;
+    this.apiResponse = hospitalDetails;
+    alert(hospitalDetails);
+    this.submitAdmissionRequest.requestNumber = hospitalDetails.requestNumber;
+    this.submitAdmissionRequest.admissionStatus = "Denied";
+    this.submitAdmissionRequest.comments = "Request Denied due to unavailability of beds";
+    this.dataService
+      .submitHospitalRequest(JSON.stringify(this.submitAdmissionRequest))
+      .subscribe(data => {
+        this.apiResponse = data;
+      });
+  }
+
+  showDetails(i, req) {
+    alert("good")
+    this.requestAdmit = !this.requestAdmit;
+    this.index = i;
+    this.apiResponse = req;
+  }
 }

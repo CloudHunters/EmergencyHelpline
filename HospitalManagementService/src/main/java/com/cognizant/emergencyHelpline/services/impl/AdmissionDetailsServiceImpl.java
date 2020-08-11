@@ -1,5 +1,10 @@
 package com.cognizant.emergencyHelpline.services.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +38,17 @@ public class AdmissionDetailsServiceImpl implements AdmissionDetailsService{
 	private AdmissionRepository admissionRepository;	
 
 	@Override
-	public ViewAdmissionResponseDTO viewAdmissionRequest(String HospitalRegnNo) {
+	public List<ViewAdmissionResponseDTO> viewAdmissionRequest(String HospitalRegnNo) {
 		log.info(String.format("Get patient Details by Mobile Number"));
-		AdmissionDetails viewAdmissionResp = admissionRepository.findByHospitalRegnNo(HospitalRegnNo);
+		List<ViewAdmissionResponseDTO> dto = new ArrayList<>();
+		List<AdmissionDetails> viewAdmissionRespList = admissionRepository.findByHospitalRegnNo(HospitalRegnNo);
+		for(AdmissionDetails viewAdmissionResp: viewAdmissionRespList) {
 		HospitalDetails hospitalDetail = hospitalRepository.findByHospitalRegnNo(viewAdmissionResp.getHospitalRegnNo());
 		PatientDetails patientDetails = patientRepository.findByMobileNumber(viewAdmissionResp.getMobileNumber());
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
+		String strDate = dateFormat.format(viewAdmissionResp.getRequestedDate());
 		ViewAdmissionResponseDTO viewAdmissionDto = new ViewAdmissionResponseDTO(viewAdmissionResp.getRequestNumber(), patientDetails.getMobileNumber(),
-				viewAdmissionResp.getRequestedDate(), hospitalDetail.getHospitalName(),
+				strDate, hospitalDetail.getHospitalName(),
 				viewAdmissionResp.getAdmissionStatus(), viewAdmissionResp.getComments(),
 				patientDetails.getEmail(), patientDetails.getAddress(),
 				patientDetails.getCity(), patientDetails.getPincode(), patientDetails.getState(),
@@ -47,8 +56,10 @@ public class AdmissionDetailsServiceImpl implements AdmissionDetailsService{
 				patientDetails.getInsuranceTpaName(), patientDetails.getInsuranceId(), patientDetails.getBloodGroup(),
 				patientDetails.getGender(), patientDetails.getDob(), patientDetails.getMaritalStatus(),
 				patientDetails.getIdProofType(), patientDetails.getIdProofNumber(), patientDetails.getMedicalHistory());
-		log.info(String.format("received patient details %s", viewAdmissionResp));
-		return viewAdmissionDto;
+		dto.add(viewAdmissionDto);
+		}
+		log.info(String.format("received patient details %s", dto));
+		return dto;
 	}
 
 	@Override

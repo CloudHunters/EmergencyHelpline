@@ -12,7 +12,7 @@ public class SubmitAdmissionRequestDTO implements Serializable {
 	private static final long serialVersionUID = 1282274672333397263L;
 
 	private String requestNumber;
-	private String AdmissionStatus;
+	private String admissionStatus;
 	private String comments;
 
 }

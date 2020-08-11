@@ -17,28 +17,27 @@
 
 
 <div *ngIf='userType === "patientLogin"'>
+
   <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>#</th>
                     <th>Request Number</th>
-                    <th>Request Create Date</th>
+                    <th>Requested Date</th>
                     <th>Hospital Name</th>
                     <th>Admission Status</th>
                     <th>Comments</th>
                 </tr>
             </thead>
-            <!--<tbody *ngFor="let req of viewAdmissionRequestArray;let i = index;">
+            <tbody *ngFor="let req of viewAdmissionRequestArray; let i = index;">
                 <tr>
-                    <th scope="row">{{i}}</th>
                     <td>{{req.requestNumber}}</td>
-                    <td>{{req.requestCreateDate}}}</td>
-                    <td>{{req.hospitalName}}}</td>
-                    <td>{{req.admissionStatus}}}</td>
-                    <td>{{req.comments}}}</td>
+                    <td>{{req.requestedDate}}</td>
+                    <td>{{req.hospitalName}}</td>
+                    <td>{{req.admissionStatus}}</td>
+                    <td>{{req.comments}}</td>
                 </tr>
-                
-            </tbody>-->
+
+            </tbody>
         </table>
 </div>
 
@@ -52,28 +51,34 @@
   <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>#</th>
                     <th>Request Number</th>
                     <th>MobileNumber</th>
                     <th>AdmissionStatus</th>
-                    <th>Request Create Date</th>
-                    <th>Email</th>
-                    <th>Address Line </th>
-                    <th> </th>
-                    <th> </th>
+                    <th>Requested Date</th>
+                    <th>Medical History</th>
+                    <th>Approve Admission</th>
+                    <th>Deny Admission</th>
                 </tr>
             </thead>
-            <!--<tbody *ngFor="let req of viewAdmissionRequestArray;let i = index;">
-                <tr>
-                    <th scope="row">{{i}}</th>
+            <tbody *ngFor="let req of viewAdmissionHospitalRequestArray;let i = index;">
+                <tr (click)="showDetails(i,req)">
                     <td>{{req.requestNumber}}</td>
-                    <td>{{req.requestCreateDate}}}</td>
-                    <td>{{req.hospitalName}}}</td>
-                    <td>{{req.admissionStatus}}}</td>
-                    <td>{{req.comments}}}</td>
+                    <td>{{req.mobileNumber}}</td>
+                    <td>{{req.admissionStatus}}</td>
+                    <td>{{req.requestedDate}}</td>
+                    <td>{{req.medicalHistory}}</td>
+                    <td><div class="col  card-title" ><button class="btn btn-dark" type="button"  (click)="onClickActionApproveRequestAdmission(i,req)" >Approve</button></div></td>
+                    <td><div class="col  card-title" ><button class="btn btn-dark" type="button"  (click)="onClickActionDenyRequestAdmission(i,req)" >Denied</button></div></td>
                 </tr>
-                
-            </tbody>-->
+
+            </tbody>
+            <div *ngIf="requestAdmit">
+
+              <div *ngIf="i === index">
+                <app-requestdetails [apiResponse]="apiResponse" ></app-requestdetails>
+              </div>
+
+            </div>
         </table>
 </div>
 

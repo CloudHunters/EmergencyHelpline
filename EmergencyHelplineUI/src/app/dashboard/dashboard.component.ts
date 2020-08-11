@@ -6,7 +6,10 @@ import {
   ApiResponse,
   RequestInput,
   ApiResponseArray,
-  ViewAdmissionRequestArray
+  ViewAdmissionRequestArray,
+  SubmitAdmissionRequest,
+  SubmitAdmissionResponse,
+  ViewAdmissionHospitalRequestArray
 } from "../model/modeldata";
 
 import { FormsModule, FormArray, ReactiveFormsModule } from "@angular/forms";
@@ -37,6 +40,10 @@ export class DashboardComponent implements OnInit {
   response : string;
   viewAdmissionRequestArray: ViewAdmissionRequestArray;
   requestInput: RequestInput = new RequestInput();
+  submitAdmissionRequest: SubmitAdmissionRequest = new SubmitAdmissionRequest();
+  submitAdmissionResponse: SubmitAdmissionResponse = new SubmitAdmissionResponse();
+  viewAdmissionHospitalRequestArray: ViewAdmissionHospitalRequestArray;
+
   constructor(
     private formBuilder: FormBuilder,
     private dataService: DataserviceService,
@@ -98,20 +105,39 @@ export class DashboardComponent implements OnInit {
   }
   index: number;
   onClickRequestAdmission(i,hospitalDetails) {
+
+
     this.requestAdmit = true;
     this.index = i;
     this.apiResponse = hospitalDetails;
+    //remove after integration
+    sessionStorage.setItem("userType", "hospitalLogin");
+    this.userType = sessionStorage.getItem("userType");
+    alert(this.userType)
     if(this.userType === "patientLogin"){
-      this.dataService.submitRequest("mobNumber",this.apiResponse.hospitalRegnNo).subscribe(data=>{
-      this.response = data;
+      console.log(JSON.stringify(hospitalDetails));
+      //remove after integration
+      sessionStorage.setItem("mobileNumber", "9840789719");
+      this.userType = sessionStorage.getItem("mobileNumber");
+      this.submitAdmissionRequest.hospitalRegnNo = hospitalDetails.hospitalRegnNo;
+      this.dataService.submitRequest(this.submitAdmissionRequest).subscribe(data=>{
+      this.submitAdmissionResponse = data;
+      alert(JSON.stringify(this.submitAdmissionResponse));
       });
      this.dataService.getSubmittedRequests("mobNumber").subscribe(data => {
       this.viewAdmissionRequestArray = data;
       sessionStorage.setItem("viewAdmissionRequestArray", JSON.stringify(this.viewAdmissionRequestArray));
     });
     this.router.navigate(['viewrequest'])
+    // move this to login
     }else if(this.userType === "hospitalLogin"){
+      this.dataService.viewHospitalSubmittedRequests("hospitalRegnNo").subscribe(data => {
+       this.viewAdmissionHospitalRequestArray = data;
+       alert(JSON.stringify(this.viewAdmissionHospitalRequestArray))
+       sessionStorage.setItem("viewAdmissionHospitalRequestArray", JSON.stringify(this.viewAdmissionHospitalRequestArray));
+      });
 
+      this.router.navigate(['viewrequest'])
     }
 
   }

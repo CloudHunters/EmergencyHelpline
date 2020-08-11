@@ -25,7 +25,7 @@ import com.cognizant.emergencyHelpline.services.PatientDetailsService;
 
 @RestController
 @RequestMapping("/patient")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PatientServiceController {
 	
 	@Autowired
@@ -49,7 +49,7 @@ public class PatientServiceController {
 	}
 	@GetMapping("/viewAdmission/{mobileNumber}")
 	public ResponseEntity<Object> viewAdmission(@PathVariable("mobileNumber") String mobileNumber) {
-		ViewAdmissionResponseDTO eventFeedBackDetailsCollection = admissionService.viewAdmissionRequest(mobileNumber);
+		List<ViewAdmissionResponseDTO> eventFeedBackDetailsCollection = admissionService.viewAdmissionRequest(mobileNumber);
 		return ObjectUtils.isEmpty(eventFeedBackDetailsCollection)
 				? new ResponseEntity<>(HttpStatus.NO_CONTENT)
 				: new ResponseEntity<>(eventFeedBackDetailsCollection, HttpStatus.OK);

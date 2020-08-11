@@ -13,5 +13,5 @@ public interface AdmissionRepository extends MongoRepository<AdmissionDetails, S
 	List<AdmissionDetails> findAll();
 	AdmissionDetails findByRequestNumber(String requestNumber);
 	String save(ViewAdmissionResponseDTO admissionDetails);
-	AdmissionDetails findByHospitalRegnNo(String hospitalRegnNo);	
+	List<AdmissionDetails> findByHospitalRegnNo(String hospitalRegnNo);	
 }

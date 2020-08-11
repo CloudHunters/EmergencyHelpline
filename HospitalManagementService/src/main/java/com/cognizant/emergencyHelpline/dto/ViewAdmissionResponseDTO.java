@@ -14,7 +14,7 @@ public class ViewAdmissionResponseDTO implements Serializable {
 
 	private String requestNumber;
 	private String mobileNumber;
-	private Date requestedDate;
+	private String requestedDate;
 	private String hospitalName;
 	private String admissionStatus;
 	private String comments;

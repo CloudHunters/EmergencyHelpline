@@ -4,7 +4,7 @@ import {
   ModelData,
   DistrictTalukPinCode,
   ApiResponse,
-  ApiResponseArray,ViewAdmissionRequestArray
+  ApiResponseArray,ViewAdmissionRequestArray,SubmitAdmissionResponse,ViewAdmissionHospitalRequestArray
 } from "../model/modeldata";
 @Injectable({
   providedIn: 'root'
@@ -18,15 +18,41 @@ export class DataserviceService {
       const headers = {
       'Content-type': 'application/json'
     }
-      return this.http.post('http://localhost:8083/hospital/searchHospitals', requestInput, {headers});
+      return this.http.post<ApiResponseArray>('http://localhost:8083/hospital/searchHospitals', requestInput, {headers});
     }
 
   public getSubmittedRequests(mobNumber){
-    return this.http.get<ViewAdmissionRequestArray>("url");
+    const headers = {
+    'Content-type': 'application/json'
+  }
+    mobNumber = "9840789719";
+    return this.http.get<ViewAdmissionRequestArray>('http://localhost:8082/patient/viewAdmission/' + mobNumber, {headers});
   }
 
-  public submitRequest(mobNumber, hospitalRegNumber){
+  public viewHospitalSubmittedRequests(hospitalRegnNo){
+    const headers = {
+    'Content-type': 'application/json'
+  }
+  alert("test")
+    hospitalRegnNo = "REGN1234";
+    return this.http.get<ViewAdmissionHospitalRequestArray>('http://localhost:8083/hospital/viewAdmission/' + hospitalRegnNo, {headers});
+  }
 
-    return this.http.post<string>("url",null);
+  public submitRequest(submitAdmissionRequest){
+    const headers = {
+    'Content-type': 'application/json'
+  }
+    console.log(JSON.stringify(submitAdmissionRequest))
+    alert("test")
+    return this.http.post<SubmitAdmissionResponse>('http://localhost:8083/patient/submitAdmission', submitAdmissionRequest, {headers});
+  }
+
+  public submitHospitalRequest(submitAdmissionRequest){
+    const headers = {
+    'Content-type': 'application/json'
+  }
+    console.log(JSON.stringify(submitAdmissionRequest))
+    alert("test")
+    return this.http.post<SubmitAdmissionResponse>('http://localhost:8083/patient/submitAdmission', submitAdmissionRequest, {headers});
   }
 }
