@@ -8,7 +8,8 @@ import {
   ApiResponseArray,
   ViewAdmissionRequestArray,
   ViewAdmissionHospitalRequestArray,
-  SubmitAdmissionHospitalRequest
+  SubmitAdmissionHospitalRequest,
+  ViewHospitalAdmissionResponse
 } from "../model/modeldata";
 @Component({
   selector: 'app-viewrequest',
@@ -18,6 +19,7 @@ import {
 export class ViewrequestComponent implements OnInit {
 viewAdmissionRequestArray:ViewAdmissionRequestArray;
 viewAdmissionHospitalRequestArray:ViewAdmissionHospitalRequestArray ;
+viewAdmissionHospitalRequest:ViewHospitalAdmissionResponse ;
 requestAdmit: boolean;
 apiResponse: SubmitAdmissionResponse;
 submitAdmissionRequest: SubmitAdmissionHospitalRequest = new SubmitAdmissionHospitalRequest();
@@ -41,7 +43,6 @@ index: number;
     this.requestAdmit = true;
     this.index = i;
     this.apiResponse = hospitalDetails;
-    alert(hospitalDetails);
     this.submitAdmissionRequest.requestNumber = hospitalDetails.requestNumber;
     this.submitAdmissionRequest.admissionStatus = "Approved";
     this.submitAdmissionRequest.comments = "Request Approved";
@@ -56,7 +57,6 @@ index: number;
     this.requestAdmit = true;
     this.index = i;
     this.apiResponse = hospitalDetails;
-    alert(hospitalDetails);
     this.submitAdmissionRequest.requestNumber = hospitalDetails.requestNumber;
     this.submitAdmissionRequest.admissionStatus = "Denied";
     this.submitAdmissionRequest.comments = "Request Denied due to unavailability of beds";
@@ -68,9 +68,9 @@ index: number;
   }
 
   showDetails(i, req) {
-    alert("good")
     this.requestAdmit = !this.requestAdmit;
     this.index = i;
-    this.apiResponse = req;
+    this.viewAdmissionHospitalRequest = req;
+
   }
 }

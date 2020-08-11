@@ -38,11 +38,13 @@ export class DashboardComponent implements OnInit {
   searchMessage: string = "";
   userType: string;
   response : string;
+  showImage:boolean=false;
   viewAdmissionRequestArray: ViewAdmissionRequestArray;
   requestInput: RequestInput = new RequestInput();
   submitAdmissionRequest: SubmitAdmissionRequest = new SubmitAdmissionRequest();
   submitAdmissionResponse: SubmitAdmissionResponse = new SubmitAdmissionResponse();
   viewAdmissionHospitalRequestArray: ViewAdmissionHospitalRequestArray;
+  isNotRegistered: string = "";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,6 +56,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.userType = sessionStorage.getItem("userType");
+    this.isNotRegistered = "false";
+    this.showImage = true;
   }
   dashBoardForm = this.formBuilder.group({
     state: [""],
@@ -85,7 +89,9 @@ export class DashboardComponent implements OnInit {
     ) {
       this.searchMessage =
         "Please choose atleast State to search for Hospitals .... ";
+        this.showImage = true;
     } else {
+      this.showImage = false;
       this.searchMessage = "";
       this.requestInput.state = this.selectedStateName;
       this.requestInput.city = this.selectedCityName;
@@ -108,14 +114,18 @@ export class DashboardComponent implements OnInit {
     this.requestAdmit = true;
     this.index = i;
     this.apiResponse = hospitalDetails;
+    //remove
+    sessionStorage.setItem("userType", "hospitalLogin");
     this.userType = sessionStorage.getItem("userType");
     if(this.userType === "patientLogin"){
-      console.log(JSON.stringify(hospitalDetails));      
+      console.log(JSON.stringify(hospitalDetails));
+      //remove
+    //  sessionStorage.setItem("mobileNumber", "9840789719");
       this.userType = sessionStorage.getItem("mobileNumber");
       this.submitAdmissionRequest.hospitalRegnNo = hospitalDetails.hospitalRegnNo;
       this.dataService.submitRequest(this.submitAdmissionRequest).subscribe(data=>{
       this.submitAdmissionResponse = data;
-      alert(JSON.stringify(this.submitAdmissionResponse));
+      console.log(JSON.stringify(this.submitAdmissionResponse));
       });
      this.dataService.getSubmittedRequests("mobNumber").subscribe(data => {
       this.viewAdmissionRequestArray = data;
@@ -126,13 +136,13 @@ export class DashboardComponent implements OnInit {
     }else if(this.userType === "hospitalLogin"){
       this.dataService.viewHospitalSubmittedRequests("hospitalRegnNo").subscribe(data => {
        this.viewAdmissionHospitalRequestArray = data;
-       alert(JSON.stringify(this.viewAdmissionHospitalRequestArray))
+       console.log(JSON.stringify(this.viewAdmissionHospitalRequestArray))
        sessionStorage.setItem("viewAdmissionHospitalRequestArray", JSON.stringify(this.viewAdmissionHospitalRequestArray));
       });
 
       this.router.navigate(['viewrequest'])
     } else {
-      alert("Please Login to Continue")
+      this.isNotRegistered = "true";
     }
 
   }

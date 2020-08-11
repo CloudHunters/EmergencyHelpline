@@ -24,17 +24,19 @@ loginRequest:Login= new Login();
 login:Login;
 usr:String = "";
 response:String  = "";
+isNotRegistered: string = "";
+isRegistered: string= "";
   ngOnInit() {
     this.usr = "loguser";
+    this.isNotRegistered = "false";
     this.loginForm = this.formBuilder.group({
     usertype: ['patientLogin',Validators.required],
-
     name: ['', Validators.required],
     username: ['', Validators.required],
     password: ['',Validators.required]
   });
   }
- usrType:string="";
+ usrType:string="patientLogin";
  username:string="";
  name:string="";
  pass:string="";
@@ -45,7 +47,7 @@ loginUser(){
   this.pass = this.loginForm.get('password').value;
   if(this.usrType==="patientLogin"){
  if(!this.username && !this.pass){
-   alert("Please enter username(Mobile Number) and password to login")
+   alert("Please enter Mobile Number and Password to login")
  }else{
   this.loginRequest.roles = this.usrType;
   this.loginRequest.username = this.username;
@@ -66,7 +68,7 @@ loginUser(){
  }
 } else {
   if(!this.username && !this.pass){
-    alert("Please enter username(Hospital Registration) and password to login")
+    alert("Please enter Hospital Registration and Password to login")
   }else{
    this.loginRequest.roles = this.usrType;
    this.loginRequest.username = this.username;
@@ -86,13 +88,18 @@ loginUser(){
 }
 }
 
+setradio(e: string): void{
+   this.usrType = e;
+ }
+
 register(){
   this.loginRequest.roles = this.usrType;
   this.loginRequest.username = this.username;
   this.loginRequest.password = this.pass;
   this.loginRequest.name = this.name;
   this.dataService.registerUser(JSON.stringify(this.loginRequest)).subscribe(data=>{
-    alert("Registered successfully");
+    this.isRegistered = "true";
+    this.usr="loguser";
 })
 }
 

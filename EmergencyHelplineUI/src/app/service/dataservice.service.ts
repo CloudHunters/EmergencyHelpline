@@ -33,7 +33,6 @@ export class DataserviceService {
     const headers = {
     'Content-type': 'application/json'
   }
-  alert("test")
     hospitalRegnNo = "REGN1234";
     return this.http.get<ViewAdmissionHospitalRequestArray>('http://localhost:8083/hospital/viewAdmission/' + hospitalRegnNo, {headers});
   }
@@ -43,7 +42,6 @@ export class DataserviceService {
     'Content-type': 'application/json'
   }
     console.log(JSON.stringify(submitAdmissionRequest))
-    alert("test")
     return this.http.post<SubmitAdmissionResponse>('http://localhost:8083/patient/submitAdmission', submitAdmissionRequest, {headers});
   }
 
@@ -51,13 +49,11 @@ export class DataserviceService {
     const headers = {
     'Content-type': 'application/json'
   }
-    console.log(JSON.stringify(submitAdmissionRequest))
-    alert("test")
+    console.log(JSON.stringify(submitAdmissionRequest))    
     return this.http.post<SubmitAdmissionResponse>('http://localhost:8083/patient/submitAdmission', submitAdmissionRequest, {headers});
   }
 
   public authService(user){
-    alert(user)
     const headers = {
       'Authorization': 'Basic ' + btoa('cognizant:hackathon'),
        'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8',

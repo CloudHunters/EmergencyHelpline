@@ -48,39 +48,41 @@
 
 
 <div *ngIf='userType === "hospitalLogin"'>
-  <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Request Number</th>
-                    <th>MobileNumber</th>
-                    <th>AdmissionStatus</th>
-                    <th>Requested Date</th>
-                    <th>Medical History</th>
-                    <th>Approve Admission</th>
-                    <th>Deny Admission</th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let req of viewAdmissionHospitalRequestArray;let i = index;">
-                <tr (click)="showDetails(i,req)">
-                    <td>{{req.requestNumber}}</td>
-                    <td>{{req.mobileNumber}}</td>
-                    <td>{{req.admissionStatus}}</td>
-                    <td>{{req.requestedDate}}</td>
-                    <td>{{req.medicalHistory}}</td>
-                    <td><div class="col  card-title" ><button class="btn btn-dark" type="button"  (click)="onClickActionApproveRequestAdmission(i,req)" >Approve</button></div></td>
-                    <td><div class="col  card-title" ><button class="btn btn-dark" type="button"  (click)="onClickActionDenyRequestAdmission(i,req)" >Denied</button></div></td>
-                </tr>
+  <div class="card ml-5 mr-5">
+    <div class="card-header">
+      <div class="row">
+        <div class="col"> Request Number </div>
+        <div class="col"> MobileNumber </div>
+        <div class="col"> AdmissionStatus </div>
+        <div class="col"> Requested Date </div>
+        <div class="col"> Medical History </div>
+        <div class="col"> Approve Admission </div>
+        <div class="col"> Deny Admission </div>
+      </div>
+    </div>
 
-            </tbody>
-            <div *ngIf="requestAdmit">
+    <div *ngFor="let req of viewAdmissionHospitalRequestArray;let i = index;" >
 
-              <div *ngIf="i === index">
-                <app-requestdetails [apiResponse]="apiResponse" ></app-requestdetails>
-              </div>
+    <div class="row card-body ml-10" (click)="showDetails(i,hospitalDetails)" >
+          <div class="col  card-title content" >{{req.requestNumber}}</div>
+          <div class="col  card-title" >{{req.mobileNumber}}</div>
+          <div class="col  card-title" >{{req.admissionStatus}}</div>
+          <div class="col  card-title" >{{req.requestedDate}}</div>
+          <div class="col  card-title" >{{req.medicalHistory}}</div>
+          <div class="col  card-title" ><button class="btn btn-dark" type="button"  (click)="onClickActionApproveRequestAdmission(i,req)" >Approve</button></div>
+          <div class="col  card-title" ><button class="btn btn-dark" type="button"  (click)="onClickActionDenyRequestAdmission(i,req)" >Deny</button></div>
+          <!--(click)="onClickRequestAdmission(i)"  apiResponseArray -->
 
-            </div>
-        </table>
-</div>
+        </div>
+        <div *ngIf="requestAdmit">
+
+          <div *ngIf="i === index">
+          <app-requestdetails [viewAdmissionHospitalRequest]="viewAdmissionHospitalRequest" ></app-requestdetails>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
 
 
     <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

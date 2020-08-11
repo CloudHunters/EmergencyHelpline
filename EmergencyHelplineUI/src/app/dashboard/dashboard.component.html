@@ -18,6 +18,9 @@
   <section id="actions" class="py-4 mb-4 bg-light">
     <div class="container">
       <form [formGroup]="dashBoardForm">
+        <div class="alert alert-success"  *ngIf="isNotRegistered == 'true'">
+          <h4 class="alert-heading">Please Login for Admission!</h4>
+        </div>
         <div class="row">
           <div class="col">
             <select class="form-control mr-2" formControlName="state" placeholder="Select State" (change)="onStateChange($event.target.value)">
@@ -55,6 +58,28 @@
     </div>
   </section>
 
+  <section id="dashboard"  *ngIf="showImage">
+      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+      <div class="carousel-inner">
+        <div class="carousel-item carousel-image-1 carousel-image-2 active">
+          <div class="container">
+            <div class="carousel-caption d-none d-sm-block text-right mb-5">
+              <h1 class="display-3">Emergency Helpline</h1>
+              <p class="lead">This application enables easy access to list of nearest hospitals with services available & secure an emergency hospitalization/admission for the patient in need.</p>
+              <a href="admin" class="btn btn-danger btn-lg">Sign Up Now to register for admission</a>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+
+    </div>
+</section>
+
+<section id="details" *ngIf="!showImage">
   <div class="card ml-5 mr-5">
     <div class="card-header">
       <div class="row">
@@ -104,7 +129,7 @@
 
   </div>
 
-
+</section>
 
   <!-- FOOTER -->
   <footer id="main-footer" class="bg-dark text-white mt-5 p-5">

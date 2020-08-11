@@ -7,10 +7,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="dashboard">Search Hospital</a>
                 </li>
-                <li class="nav-item" *ngIf="userType">
-                    <a class="nav-link" href="viewrequest">View Submitted requests</a>
+                <li class="nav-item" *ngIf="userType == 'patientLogin'">
+                    <a class="nav-link" href="viewrequest">Submitted requests</a>
                 </li>
-
+                <li class="nav-item" *ngIf="userType == 'hospitalLogin'">
+                    <a class="nav-link" href="viewrequest">Patient request Details</a>
+                </li>
                  <!-- <li class="nav-item">
                     <a class="nav-link" href="hospital">Hospital Administration</a>
                 </li> -->
