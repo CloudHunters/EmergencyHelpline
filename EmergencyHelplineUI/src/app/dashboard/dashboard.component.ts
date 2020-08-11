@@ -115,13 +115,13 @@ export class DashboardComponent implements OnInit {
     this.index = i;
     this.apiResponse = hospitalDetails;
     //remove
-    sessionStorage.setItem("userType", "hospitalLogin");
+  //  sessionStorage.setItem("userType", "hospitalLogin");
     this.userType = sessionStorage.getItem("userType");
     if(this.userType === "patientLogin"){
       console.log(JSON.stringify(hospitalDetails));
       //remove
     //  sessionStorage.setItem("mobileNumber", "9840789719");
-      this.userType = sessionStorage.getItem("mobileNumber");
+  //    this.userType = sessionStorage.getItem("mobileNumber");
       this.submitAdmissionRequest.hospitalRegnNo = hospitalDetails.hospitalRegnNo;
       this.dataService.submitRequest(this.submitAdmissionRequest).subscribe(data=>{
       this.submitAdmissionResponse = data;
