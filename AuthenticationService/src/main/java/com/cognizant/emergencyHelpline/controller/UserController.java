@@ -25,7 +25,7 @@ import com.cognizant.emergencyHelpline.service.UserService;
 
 @RestController
 @RequestMapping("/authentication")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);

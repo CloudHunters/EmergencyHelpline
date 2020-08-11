@@ -8,13 +8,16 @@ import { Component, OnInit } from "@angular/core";
 export class HomeComponent implements OnInit {
   showAbout: boolean = false;
   constructor() {}
-  userLogin: string = "";
-  hospitalLogin: string = "";
+  userType: string = "";
 
-  userType: string;
+userName:String = "Login/Sign Up";
+sessionUser:String = "";
   ngOnInit() {
-    //sessionStorage.setItem("userType", "patientLogin");
-    sessionStorage.setItem("userType", "hospitalLogin");
-   this.userType = "patientLogin"; 
+
+   this.userType = sessionStorage.getItem("userType");
+   this.sessionUser = sessionStorage.getItem("userName")
+   if(this.sessionUser){
+this.userName = this.sessionUser;
+   }
   }
 }

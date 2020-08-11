@@ -105,19 +105,12 @@ export class DashboardComponent implements OnInit {
   }
   index: number;
   onClickRequestAdmission(i,hospitalDetails) {
-
-
     this.requestAdmit = true;
     this.index = i;
     this.apiResponse = hospitalDetails;
-    //remove after integration
-    sessionStorage.setItem("userType", "hospitalLogin");
     this.userType = sessionStorage.getItem("userType");
-    alert(this.userType)
     if(this.userType === "patientLogin"){
-      console.log(JSON.stringify(hospitalDetails));
-      //remove after integration
-      sessionStorage.setItem("mobileNumber", "9840789719");
+      console.log(JSON.stringify(hospitalDetails));      
       this.userType = sessionStorage.getItem("mobileNumber");
       this.submitAdmissionRequest.hospitalRegnNo = hospitalDetails.hospitalRegnNo;
       this.dataService.submitRequest(this.submitAdmissionRequest).subscribe(data=>{
@@ -138,6 +131,8 @@ export class DashboardComponent implements OnInit {
       });
 
       this.router.navigate(['viewrequest'])
+    } else {
+      alert("Please Login to Continue")
     }
 
   }

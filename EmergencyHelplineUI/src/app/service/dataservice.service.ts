@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient,HttpHeaders } from "@angular/common/http";
 import {
   ModelData,
   DistrictTalukPinCode,
-  ApiResponse,
+  ApiResponse,Login,
   ApiResponseArray,ViewAdmissionRequestArray,SubmitAdmissionResponse,ViewAdmissionHospitalRequestArray
 } from "../model/modeldata";
 @Injectable({
@@ -55,4 +55,32 @@ export class DataserviceService {
     alert("test")
     return this.http.post<SubmitAdmissionResponse>('http://localhost:8083/patient/submitAdmission', submitAdmissionRequest, {headers});
   }
+
+  public authService(user){
+    alert(user)
+    const headers = {
+      'Authorization': 'Basic ' + btoa('cognizant:hackathon'),
+       'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8',
+       'Access-Control-Allow-Headers' : '*',
+    	  'Access-Control-Allow-Origin': '*',
+    	  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    	  'Access-Control-Max-Age': '3600'
+    }
+    return this.http.post<any>("http://localhost:8081/oauth/token", user, {headers});
+}
+
+public getUsers(userName) {
+  console.log(userName)
+    return this.http.get<any>("http://localhost:8081/user?access_token=" + JSON.parse(window.sessionStorage.getItem('token')).access_token);
+  }
+
+public registerUser(user){
+  const httpHeaders ={
+    headers: new HttpHeaders({
+      'Content-Type':'application/json'
+    })
+  }
+  console.log(user)
+return this.http.post<any>("localhost:8081/authentication/register", user, httpHeaders);
+}
 }

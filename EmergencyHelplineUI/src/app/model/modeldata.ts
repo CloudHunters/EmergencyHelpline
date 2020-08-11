@@ -97,3 +97,17 @@ export class ViewHospitalAdmissionResponse{
 	idProofNumber: String = null;
 	medicalHistory: String = null;
 }
+
+export class Login{
+  username:string = null;
+   password:string = null;
+   name:string = null;
+   roles:string = null;   
+}
+
+export class HospitalLogin{
+  hospitalRegn:String=null;
+password:String=null;
+role:String=null;
+
+}

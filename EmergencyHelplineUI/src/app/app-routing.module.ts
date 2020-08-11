@@ -14,7 +14,11 @@ const routes: Routes = [
     component:AboutComponent
   },
   {
-    path:"dashborad",
+    path:"dashboard",
+    component:DashboardComponent
+  },
+  {
+    path:"",
     component:DashboardComponent
   },
    {
@@ -37,7 +41,7 @@ const routes: Routes = [
     path:"viewrequest",
     component:ViewrequestComponent
   }
-  
+
 ];
 
 @NgModule({
