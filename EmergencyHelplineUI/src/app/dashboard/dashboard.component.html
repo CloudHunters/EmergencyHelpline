@@ -38,10 +38,10 @@
 
             <select class="form-control mr-2" formControlName="speciality" (change)="onSpecialityChange($event.target.value)">
              <option  value="" disabled selected hidden>Select Speciality</option>
+             <option  value="ortho" >Ortho Speciality</option>
              <option  value="covid" >Covid Speciality</option>
              <option  value="heart" >Heart Speciality</option>
              <option  value="accident" >Accident Speciality</option>
-             <option  value="ortho" >Ortho Speciality</option>
              <option  value="neuro" >Neuro Speciality</option>
           </select>
 
@@ -55,7 +55,7 @@
     </div>
   </section>
 
-  <div class="card">
+  <div class="card ml-5 mr-5">
     <div class="card-header">
       <div class="row">
         <div class="col"> Hospital Name </div>
@@ -73,21 +73,22 @@
       </div>
     </div>
 
+
 <div *ngFor="let hospitalDetails of apiResponseArray; let i = index;" >
 
 <div class="row card-body ml-10" (click)="showDetails(i,hospitalDetails)" >
-      <div class="col  card-title" > {{hospitalDetails.hospitalName}}</div>
-      <div class="col  card-title" > {{ hospitalDetails.hospitalType  }}</div>
-      <div class="col  card-title" > {{ hospitalDetails.contactNumber  }}</div>
-      <div class="col  card-title" > {{ hospitalDetails.address  }}</div>
-      <div class="col  card-title" > {{ hospitalDetails.multiSpeciality  }}</div>
-      <div class="col  card-title" > {{ hospitalDetails.ambulanceAvailability  }}</div>
-      <div class="col  card-title" > {{ hospitalDetails.bloodBankAvailability  }}</div>
-      <div class="col  card-title" > {{ hospitalDetails.scanAvailability  }}</div>
-      <div class="col  card-title" > {{ hospitalDetails.insuranceAvailability }}</div>
-      <div class="col  card-title" ><button type="button" ><img src="/assets/img/navigation.png" class="logo-style" /></button></div>
-      <div class="col  card-title" ><button class="btn btn-dark" type="button"  (click)="onClickRequestAdmission(i)" >Admission</button></div>
-      <!--(click)="onClickRequestAdmission(i)"  apiResponseArray-->
+      <div class="col  card-title" >{{hospitalDetails.hospitalName}}</div>
+      <div class="col  card-title" >{{ hospitalDetails.hospitalType  }}</div>
+      <div class="col  card-title" >{{ hospitalDetails.contactNumber  }}</div>
+      <div class="col  card-title" >{{ hospitalDetails.address  }}</div>
+      <div class="col  card-title" >{{ hospitalDetails.multiSpeciality  }}</div>
+      <div class="col  card-title" >{{ hospitalDetails.ambulanceAvailability  }}</div>
+      <div class="col  card-title" >{{ hospitalDetails.bloodBankAvailability  }}</div>
+      <div class="col  card-title" >{{ hospitalDetails.scanAvailability  }}</div>
+      <div class="col  card-title" >{{ hospitalDetails.insuranceAvailability }}</div>
+      <div class="col  card-title" ><button  type="button"><img src="../assets/img/navigate.png" class="logo-style" /></button></div>
+      <div class="col  card-title" ><button class="btn btn-dark" type="button"  (click)="onClickRequestAdmission(i,hospitalDetails)" >Admission</button></div>
+      <!--(click)="onClickRequestAdmission(i)"  apiResponseArray -->
 
     </div>
     <div *ngIf="requestAdmit">

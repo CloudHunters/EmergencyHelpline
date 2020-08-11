@@ -7,8 +7,7 @@ import { ContactComponent } from './contact/contact.component';
 import { HospitalComponent } from './hospital/hospital.component';
 import { ServicesComponent } from './services/services.component';
 import { AdminComponent } from './admin/admin.component';
-import { LoginComponent } from './login/login.component';
-import {RegistrationComponent}  from './registration/registration.component';
+import { ViewrequestComponent } from './viewrequest/viewrequest.component';
 const routes: Routes = [
  {
     path:"about",
@@ -35,8 +34,8 @@ const routes: Routes = [
     component:AdminComponent
   },
   {
-    path:"register",
-    component:RegistrationComponent
+    path:"viewrequest",
+    component:ViewrequestComponent
   }
   
 ];

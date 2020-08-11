@@ -4,12 +4,16 @@ import {
   ModelData,
   DistrictTalukPinCode,
   ApiResponse,
-  RequestInput,ApiResponseArray
+  RequestInput,
+  ApiResponseArray,
+  ViewAdmissionRequestArray
 } from "../model/modeldata";
 
 import { FormsModule, FormArray, ReactiveFormsModule } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { DataserviceService } from "../service/dataservice.service";
+import { Router } from '@angular/router';
+
 declare var require: any;
 @Component({
   selector: "app-dashboard",
@@ -20,7 +24,7 @@ export class DashboardComponent implements OnInit {
   stateDropDownData: ModelData[];
   districtDropDownData: DistrictTalukPinCode[];
   apiResponseArray: ApiResponseArray;
-  apiResponse:ApiResponse;
+  apiResponse: ApiResponse;
   configData = require("./configData.json");
   mdoelData: ModelData;
   selectedStateName: string = "";
@@ -29,15 +33,21 @@ export class DashboardComponent implements OnInit {
   selectedpin: string = "";
   requestAdmit: boolean;
   searchMessage: string = "";
-  requestInput:RequestInput = new RequestInput();
+  userType: string;
+  response : string;
+  viewAdmissionRequestArray: ViewAdmissionRequestArray;
+  requestInput: RequestInput = new RequestInput();
   constructor(
     private formBuilder: FormBuilder,
-    private dataService: DataserviceService
+    private dataService: DataserviceService,
+    private router:Router
   ) {
     this.stateDropDownData = this.configData["inputData"];
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userType = sessionStorage.getItem("userType");
+  }
   dashBoardForm = this.formBuilder.group({
     state: [""],
     city: [""],
@@ -66,34 +76,47 @@ export class DashboardComponent implements OnInit {
       !this.selectedSpeciality &&
       !this.dashBoardForm.get("pincode").value
     ) {
-      this.searchMessage = "Please choose atleast State to search for Hospitals .... ";
+      this.searchMessage =
+        "Please choose atleast State to search for Hospitals .... ";
     } else {
       this.searchMessage = "";
-      alert(this.selectedStateName)
-    this.requestInput.state = this.selectedStateName;
-    this.requestInput.city = this.selectedCityName;
-    this.requestInput.pincode = this.selectedpin;
-    this.requestInput.speciality = this.selectedSpeciality;
-    console.log(JSON.stringify(this.requestInput))
+      this.requestInput.state = this.selectedStateName;
+      this.requestInput.city = this.selectedCityName;
+      this.requestInput.pincode = this.selectedpin;
+      this.requestInput.speciality = this.selectedSpeciality;
 
-    this.dataService.getHospitalSearchResult(JSON.stringify(this.requestInput)).subscribe(data =>{
-      this.apiResponseArray=  data;
-     })
-  }
-  return true;
+      this.dataService
+        .getHospitalSearchResult(JSON.stringify(this.requestInput))
+        .subscribe(data => {
+          this.apiResponseArray = data;
+        });
+    }
+    return true;
   }
   onSpecialityChange(speciality) {
     this.selectedSpeciality = speciality;
   }
   index: number;
-  onClickRequestAdmission(i) {
+  onClickRequestAdmission(i,hospitalDetails) {
     this.requestAdmit = true;
-
     this.index = i;
-    //return this.http.get<Hero[]>(this.heroesUrl)
+    this.apiResponse = hospitalDetails;
+    if(this.userType === "patientLogin"){
+      this.dataService.submitRequest("mobNumber",this.apiResponse.hospitalRegnNo).subscribe(data=>{
+      this.response = data;
+      });
+     this.dataService.getSubmittedRequests("mobNumber").subscribe(data => {
+      this.viewAdmissionRequestArray = data;
+      sessionStorage.setItem("viewAdmissionRequestArray", JSON.stringify(this.viewAdmissionRequestArray));
+    });
+    this.router.navigate(['viewrequest'])
+    }else if(this.userType === "hospitalLogin"){
+
+    }
+
   }
 
-  showDetails(i,hospitalDetails){
+  showDetails(i, hospitalDetails) {
     this.requestAdmit = !this.requestAdmit;
     this.index = i;
     this.apiResponse = hospitalDetails;

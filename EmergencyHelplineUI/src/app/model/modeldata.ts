@@ -42,6 +42,19 @@ export class ApiResponse  {
 export class RequestInput{
   state:String = null;
   city:String = null;
-  pincode:String = null;
   speciality:String = null;
+  pincode:String = null;
 }
+export class ViewAdmissionRequestArray{
+  viewAdmissionRequest:ViewAdmissionRequest[];
+}
+export class ViewAdmissionRequest{
+  requestNumber:string;
+  requestCreateDate:string;
+  hospitalName:string;
+  admissionStatus:string;
+  comments:string;
+
+}
+
+

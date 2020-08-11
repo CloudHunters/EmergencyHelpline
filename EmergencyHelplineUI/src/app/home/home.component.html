@@ -7,6 +7,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="dashborad">Search Hospital</a>
                 </li>
+                <li class="nav-item" *ngIf="userType">
+                    <a class="nav-link" href="viewrequest">View Submitted requests</a>
+                </li>
+                
                  <li class="nav-item">
                     <a class="nav-link" href="hospital">Hospital Administration</a>
                 </li>
