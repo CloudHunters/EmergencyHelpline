@@ -4,7 +4,7 @@ import * as routes from "./routes";
 
 dotenv.config();
 
-const port = 8080;
+const port = 8089;
 const app = express();
 
 routes.emergencyappBFF(app);

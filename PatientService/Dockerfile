@@ -1,15 +1,15 @@
-FROM gradle:jdk11 AS builder
+FROM alpine-jdk:base
 
-WORKDIR /home/gradle
-COPY . .
-RUN ./gradlew assemble copyJarToServerJar --no-daemon
+MAINTAINER javaonfly
 
-FROM registry.access.redhat.com/ubi8/ubi
+RUN apk --no-cache add netcat-openbsd
 
-RUN dnf install -y java-11-openjdk.x86_64
+ARG build_Name=PatientService-0.0.1-SNAPSHOT.jar
 
-COPY --from=builder /home/gradle/build/libs/server.jar ./server.jar
+COPY /PatientService/target/${build_Name} /opt/lib/
 
-EXPOSE 9080/tcp
+COPY PatientService-entrypoint.sh /opt/bin/PatientService-entrypoint.sh
 
-CMD ["java", "-jar", "./server.jar"]
+RUN chmod 755 /opt/bin/PatientService-entrypoint.sh
+
+EXPOSE 8082

@@ -1,15 +1,17 @@
-FROM gradle:jdk11 AS builder
+FROM alpine-jdk:base
 
-WORKDIR /home/gradle
-COPY . .
-RUN ./gradlew assemble copyJarToServerJar --no-daemon
+MAINTAINER javaonfly
 
-FROM registry.access.redhat.com/ubi8/ubi
+RUN apk --no-cache add netcat-openbsd
 
-RUN dnf install -y java-11-openjdk.x86_64
+ARG build_Name=ServiceZuulAPIGateway-0.0.1-SNAPSHOT.jar
 
-COPY --from=builder /home/gradle/build/libs/server.jar ./server.jar
+ARG build_script=ServiceAPIGateway-entrypoint.sh
 
-EXPOSE 9080/tcp
+COPY /ServiceZuulAPIGateway/target/${build_Name} /opt/lib/
 
-CMD ["java", "-jar", "./server.jar"]
+COPY ${build_script} /opt/bin/${build_script}
+
+RUN chmod 755 /opt/bin/${build_script}
+
+EXPOSE 8762

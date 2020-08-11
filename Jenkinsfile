@@ -121,7 +121,7 @@ spec:
         - name: ENVIRONMENT_NAME
           value: ${env.NAMESPACE}
         - name: DOCKERFILE
-          value: ./Dockerfile
+          value: ./docker-compose
         - name: CONTEXT
           value: .
         - name: TLSVERIFY
@@ -208,12 +208,12 @@ spec:
             }
             stage('Build') {
                 sh '''
-                    ./gradlew assemble --no-daemon
+                    ./mvn -B -DskipTests clean package --no-daemon
                 '''
             }
             stage('Test') {
                 sh '''#!/bin/bash
-                    ./gradlew testClasses --no-daemon
+                    ./mvn test --no-daemon
                 '''
             }
             stage('Sonar scan') {
@@ -224,19 +224,18 @@ spec:
                   exit 0
                 fi
 
-                if ./gradlew tasks --all | grep -Eq "^sonarqube"; then
+                if ./mvn verify | grep -Eq "^sonarqube"; then
                     echo "SonarQube task found"
                 else
                     echo "Skipping SonarQube step, no task defined"
                     exit 0
                 fi
 
-                ./gradlew \
+                ./mvn sonar:sonar \
                   -Dsonar.login=${SONARQUBE_USER} \
                   -Dsonar.password=${SONARQUBE_PASSWORD} \
                   -Dsonar.host.url=${SONARQUBE_URL} \
-                  -Psonar.projectName=${IMAGE_NAME} \
-                  sonarqube
+                  -Psonar.projectName=${IMAGE_NAME} 
                 '''
             }
         }
@@ -437,14 +436,14 @@ spec:
                     set -x
                     . ./env-config
 
-                    if ./gradlew tasks --all | grep -Eq "^pactVerify"; then
+                    if ./mvn verify --all | grep -Eq "^pactVerify"; then
                         echo "Pact Verify task found"
                     else
                         echo "Skipping Pact Verify step, no task defined"
                         exit 0
                     fi
 
-                    ./gradlew pactVerify \
+                    ./mvn pact:verify \
                       -PpactBrokerUrl=${PACTBROKER_URL} \
                       -PpactProtocol=${PROTOCOL} \
                       -PpactHost=${HOST} \

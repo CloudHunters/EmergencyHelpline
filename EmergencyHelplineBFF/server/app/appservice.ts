@@ -24,7 +24,7 @@ export function register(accessToken: string, request: any) {
         // headers: {"X-Auth-Token": authToken},
         data: request,
         method: "post",
-        url: "http:/localhost:9300/authDetails/register?access_token=" + accessToken
+        url: "http:/localhost:9300/authDetails/register"
     })
         .then((response) => {
             return (response.data);

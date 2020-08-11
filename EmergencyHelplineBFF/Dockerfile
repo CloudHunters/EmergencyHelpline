@@ -1,20 +1,17 @@
-FROM registry.access.redhat.com/ubi8/nodejs-12 AS builder
+FROM node:12.2.0-alpine
 
-WORKDIR /opt/app-root/src
+# set working directory
+WORKDIR /app
 
-COPY . .
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
-RUN npm install
-RUN npm run build
+# install and cache app dependencies
+COPY EmergencyHelplineBFF/package.json /app/package.json
+RUN cd /app; npm install -production
 
-FROM registry.access.redhat.com/ubi8/nodejs-12
+# add app
+COPY EmergencyHelplineBFF/. /app
 
-COPY --from=builder /opt/app-root/src/dist dist
-COPY package.json .
-RUN npm install --production
-
-ENV HOST=0.0.0.0 PORT=3000
-
-EXPOSE 3000/tcp
-
-CMD npm run serve
+# start app
+CMD npm run start --host 0.0.0.0 --disableHostCheck
