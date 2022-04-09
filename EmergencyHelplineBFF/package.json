@@ -18,7 +18,7 @@
     "big.js": "^5.2.2",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
-    "moment": "^2.24.0"
+    "moment": "^2.29.2"
   },
   "devDependencies": {
     "@types/big.js": "^4.0.5",
